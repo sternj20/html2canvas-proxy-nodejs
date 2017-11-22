@@ -29,16 +29,16 @@ server = http.createServer(function(req,res){
     // Get the params
     var query = url.parse(req.url,true).query;
     var imageUrl = query.url || null;
-    console.log(`this is the image url ${imageUrl}`)
-    var callback = query.callback || null;
-    console.log(`this is the callback ${callback}`)
-    // check for param existance, error if not
-    if ( !imageUrl || !callback ) {
-        console.log('Missing arguments');
-        res.writeHead(400); // 400 = Bad Request
-        res.end();
-        return;
-    }
+    // console.log(`this is the image url ${imageUrl}`)
+    // var callback = query.callback || null;
+    // console.log(`this is the callback ${callback}`)
+    // // check for param existance, error if not
+    // if ( !imageUrl || !callback ) {
+    //     console.log('Missing arguments');
+    //     res.writeHead(400); // 400 = Bad Request
+    //     res.end();
+    //     return;
+    // }
 
     // request the image url
     request({
@@ -52,7 +52,7 @@ server = http.createServer(function(req,res){
             res.setHeader('Content-Type', 'application/javascript');
             imageContentType = imageRes.headers['content-type'];
             responseData = 'data:'+imageContentType+';base64,'+imageData;
-            res.write(callback+'('+JSON.stringify(responseData)+')');
+            res.write(('+JSON.stringify(responseData)+')');
             res.end();
             console.log('Sent image:', imageUrl);
             return;
@@ -61,7 +61,7 @@ server = http.createServer(function(req,res){
             console.log('Failed image:', imageUrl);
             res.writeHead(imageRes && imageRes.statusCode || 400); // bad request
             responseData = JSON.stringify('error:Application error');
-            res.write(callback+'('+responseData+')');
+            res.write('('+responseData+')');
             res.end();
             return;
         }
