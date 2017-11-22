@@ -52,7 +52,7 @@ server = http.createServer(function(req,res){
             res.setHeader('Content-Type', 'application/javascript');
             imageContentType = imageRes.headers['content-type'];
             responseData = 'data:'+imageContentType+';base64,'+imageData;
-            res.write(('+JSON.stringify(responseData)+')');
+            res.write(JSON.stringify(responseData));
             res.end();
             console.log('Sent image:', imageUrl);
             return;
@@ -61,7 +61,7 @@ server = http.createServer(function(req,res){
             console.log('Failed image:', imageUrl);
             res.writeHead(imageRes && imageRes.statusCode || 400); // bad request
             responseData = JSON.stringify('error:Application error');
-            res.write('('+responseData+')');
+            res.write(responseData);
             res.end();
             return;
         }
