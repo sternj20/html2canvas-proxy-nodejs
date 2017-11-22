@@ -29,7 +29,9 @@ server = http.createServer(function(req,res){
     // Get the params
     var query = url.parse(req.url,true).query;
     var imageUrl = query.url || null;
+    console.log(`this is the image url ${imageUrl}`)
     var callback = query.callback || null;
+    console.log(`this is the callback ${callback}`)
     // check for param existance, error if not
     if ( !imageUrl || !callback ) {
         console.log('Missing arguments');
