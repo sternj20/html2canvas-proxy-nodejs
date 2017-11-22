@@ -3,6 +3,8 @@ const url = require('url');
 const cors = require('cors');
 const request = require('request');
 const port = (process.env.PORT || 3000);
+const app = express();
+
 
 function validUrl(req, res, next) {
     if (!req.query.url) {
@@ -15,8 +17,8 @@ function validUrl(req, res, next) {
 }
 
 const routes = () => {
-    const app = express.Router();
-    app.get('/', cors(), validUrl, (req, res, next) => {
+    let route= express.Router();
+    route.get('/', cors(), validUrl, (req, res, next) => {
         switch (req.query.responseType) {
     case 'blob':
         req.pipe(request(req.query.url).on('error', next)).pipe(res);
