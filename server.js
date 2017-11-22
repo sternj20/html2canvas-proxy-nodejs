@@ -14,7 +14,7 @@ function validUrl(req, res, next) {
     }
 }
 
-module.exports = () => {
+const routes = () => {
     const app = express.Router();
     app.get('/', cors(), validUrl, (req, res, next) => {
         switch (req.query.responseType) {
@@ -37,8 +37,9 @@ module.exports = () => {
     }
 });
 
-    return app;
+    // return app;
 };
 
 console.log("Server running on port", port);
+app.use(routes)
 app.listen(port);
