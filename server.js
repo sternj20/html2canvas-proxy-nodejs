@@ -39,9 +39,10 @@ const routes = () => {
     }
 });
 
-    // return app;
+    return route;
 };
 
 console.log("Server running on port", port);
-app.use(routes)
+
+app.use('/', routes)
 app.listen(port);
