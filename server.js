@@ -2,6 +2,7 @@ const express = require('express');
 const url = require('url');
 const cors = require('cors');
 const request = require('request');
+const port = (process.env.PORT || 3000);
 
 function validUrl(req, res, next) {
     if (!req.query.url) {
@@ -38,3 +39,6 @@ module.exports = () => {
 
     return app;
 };
+
+console.log("Server running on port", port);
+app.listen(port);
