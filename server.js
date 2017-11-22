@@ -4,6 +4,7 @@ const cors = require('cors');
 const request = require('request');
 const port = (process.env.PORT || 3000);
 const app = express();
+const router = express.Router();
 
 
 function validUrl(req, res, next) {
@@ -16,9 +17,8 @@ function validUrl(req, res, next) {
     }
 }
 
-const routes = () => {
-    let route= express.Router();
-    route.get('/', cors(), validUrl, (req, res, next) => {
+    router.get('/', cors(), validUrl, (req, res, next) => {
+        console.log(req.query)
         switch (req.query.responseType) {
     case 'blob':
         req.pipe(request(req.query.url).on('error', next)).pipe(res);
@@ -39,10 +39,10 @@ const routes = () => {
     }
 });
 
-    return route;
-};
+
+
 
 console.log("Server running on port", port);
 
-app.use('/', routes)
+app.use('/', router)
 app.listen(port);
